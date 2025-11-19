@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">P6PGM</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tutorial">TUTORIAL</string>
+    <string name="luchar">LUCHAR</string>
+    <string name="equivocado">¡Te has equivocado!</string>
+    <string name="rendirse">Rendirse</string>
+    <string name="reintentar">Reintentar</string>
+    <string name="ronda">Ronda:</string>
+    <string name="meta">Meta:</string>
+    <string name="vidas">Vidas:</string>
+</resources>
