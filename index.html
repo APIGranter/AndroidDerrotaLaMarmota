@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derrota la marmota! - Instrucciones</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #8B4513, #D2691E, #FFD700);
+            color: #fff;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="20" cy="20" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="40" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="70" r="4" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="3" fill="rgba(255,255,255,0.1)"/></svg>');
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(139, 69, 19, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 8px solid #FFD700;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container:before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #FFD700, #D2691E, #8B4513, #FFD700);
+            z-index: -1;
+            border-radius: 25px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px dashed #FFD700;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0 #8B4513, 5px 5px 0 #000;
+            color: #FFD700;
+            animation: titile-bounce 2s infinite alternate;
+        }
+        
+        @keyframes titile-bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #FFF;
+            background-color: #8B4513;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            transform: rotate(-2deg);
+        }
+        
+        .marmota {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 40px;
+            animation: marmota-move 3s infinite alternate;
+        }
+        
+        @keyframes marmota-move {
+            0% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0); }
+        }
+        
+        section {
+            margin-bottom: 30px;
+            background-color: rgba(210, 105, 30, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            border: 3px solid #FFD700;
+            position: relative;
+            transition: transform 0.3s;
+        }
+        
+        section:hover {
+            transform: translateY(-5px);
+        }
+        
+        h2 {
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            border-left: 4px solid #FFD700;
+            padding-left: 10px;
+            text-shadow: 2px 2px 0 #8B4513;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .symbols-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .symbol {
+            text-align: center;
+            margin: 10px;
+            width: 120px;
+            transition: transform 0.3s;
+        }
+        
+        .symbol:hover {
+            transform: scale(1.1);
+        }
+        
+        .symbol-box {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 10px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 3px solid #FFD700;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .symbol-name {
+            font-weight: bold;
+            background-color: #8B4513;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        
+        .steps {
+            counter-reset: step-counter;
+            margin-left: 20px;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            background-color: #FFD700;
+            color: #8B4513;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tips {
+            background-color: rgba(255, 215, 0, 0.3);
+            border-left: 4px solid #FFD700;
+            padding: 15px;
+            border-radius: 0 15px 15px 0;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .tips:before {
+            content: "💡";
+            position: absolute;
+            left: -30px;
+            top: 15px;
+            font-size: 24px;
+            background: #8B4513;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #FFD700;
+        }
+        
+        .tips h3 {
+            color: #FFD700;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 0 #8B4513;
+        }
+        
+        .challenge {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            border-radius: 15px;
+            border: 3px dashed #FFD700;
+            animation: challenge-pulse 2s infinite;
+        }
+        
+        @keyframes challenge-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px dashed #FFD700;
+            font-style: italic;
+        }
+        
+        .btn-jugar {
+            display: inline-block;
+            background: linear-gradient(to bottom, #FFD700, #D2691E);
+            color: #8B4513;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            border: 3px solid #8B4513;
+            box-shadow: 0 5px 0 #8B4513;
+            transition: all 0.3s;
+        }
+        
+        .btn-jugar:hover {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #8B4513;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .marmota {
+                position: static;
+                display: block;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+            
+            .symbols-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="marmota">🐹</div>
+            <h1>Derrota la marmota!</h1>
+            <p class="subtitle">¡Un desafío de memoria que te enganchará!</p>
+        </header>
+        
+        <section>
+            <h2>¡La Gran Misión!</h2>
+            <p>Una marmota hiperactiva está creando secuencias de símbolos cada vez más largas. ¡Tu misión es repetirlas exactamente igual para demostrar que tu memoria es mejor que la suya!</p>
+        </section>
+        
+        <section>
+            <h2>Los Símbolos Mágicos</h2>
+            <p>La marmota usa 4 símbolos especiales. ¡Memorízalos bien!</p>
+            <div class="symbols-container">
+                <div class="symbol">
+                    <div class="symbol-box">○</div>
+                    <div class="symbol-name">Círculo Mágico</div>
+                </div>
+                <div class="symbol">
+                    <div class="symbol-box">△</div>
+                    <div class="symbol-name">Triángulo Poderoso</div>
+                </div>
+                <div class="symbol">
+                    <div class="symbol-box">□</div>
+                    <div class="symbol-name">Cuadrado de Fuerza</div>
+                </div>
+                <div class="symbol">
+                    <div class="symbol-box">✕</div>
+                    <div class="symbol-name">Equis Misteriosa</div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>¡A Jugar!</h2>
+            <div class="steps">
+                <div class="step">Observa con ojos de águila la secuencia que muestra la marmota.</div>
+                <div class="step">Cuando termine, ¡es tu turno! Toca los botones en el MISMO orden.</div>
+                <div class="step">¡Bien hecho! La marmota se enfadará y hará la secuencia más larga.</div>
+                <div class="step">¡Ups! Si te equivocas, perderás una de tus preciadas vidas.</div>
+                <div class="step">Gana cuando completes todas las rondas y la marmota admita tu superioridad.</div>
+                <div class="step">Si pierdes todas tus vidas... ¡la marmota se burlará de ti!</div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Reglas del Desafío</h2>
+            <p><strong>❤️ Vidas:</strong> Comienzas con 3 vidas. ¡Cuídalas como a un tesoro!</p>
+            <p><strong>🌀 Rondas:</strong> Cada ronda exitosa = secuencia más larga y difícil.</p>
+            <p><strong>🏆 Meta:</strong> Debes superar todas las rondas para ganar.</p>
+            <p><strong>🔁 Botón de Ayuda:</strong> Puedes pedir que repitan la secuencia, pero la marmota se vengará haciendo el juego más difícil.</p>
+        </section>
+        
+        <div class="tips">
+            <h3>¡Trucos para Derrotar a la Marmota!</h3>
+            <p>• ¡Concentración total! No dejes que la marmota te distraiga.</p>
+            <p>• Crea una historia con los símbolos para recordarlos mejor.</p>
+            <p>• Usa el botón de ayuda solo en emergencias (la marmota es rencorosa).</p>
+            <p>• Respira hondo en las rondas difíciles - ¡tú puedes!</p>
+        </div>
+        
+        <div class="challenge">
+            <h3>¡Acepta el Desafío!</h3>
+            <p>¿Tienes lo que se necesita para derrotar a la marmota y convertirte en el campeón de la memoria?</p>
+            <a href="#" class="btn-jugar" onclick="alert('¡A jugar! Regresa a la app y demuestra tu valía.')">¡QUIERO JUGAR YA!</a>
+        </div>
+        
+        <footer>
+            <p>¡Diviértete y demuestra que tu memoria es imbatible! 🏆</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Efecto de confeti al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            const colors = ['#FFD700', '#D2691E', '#8B4513', '#FFFFFF'];
+            const container = document.querySelector('.container');
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.innerHTML = ['⭐', '🎉', '🏆', '✨'][Math.floor(Math.random() * 4)];
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-50px';
+                    confetti.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                    confetti.style.opacity = '0.8';
+                    confetti.style.zIndex = '9999';
+                    confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    // Remover después de la animación
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, i * 100);
+            }
+            
+            // Agregar estilos para la animación de confeti
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fall {
+                    to {
+                        transform: translateY(100vh) rotate(${Math.random() * 360}deg);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
