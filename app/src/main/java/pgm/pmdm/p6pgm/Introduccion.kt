@@ -1,5 +1,6 @@
 package pgm.pmdm.p6pgm
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class Introduccion : AppCompatActivity() {
+    @SuppressLint("UseKtx")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -29,7 +31,7 @@ class Introduccion : AppCompatActivity() {
 
         val botonInfo = findViewById<Button>(R.id.boton_informacion)
         botonInfo.setOnClickListener {
-            val url = "https://yourusername.github.io/marmota-instrucciones/"
+            val url = "https://apigranter.github.io/AndroidDerrotaLaMarmota/"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)
         }
